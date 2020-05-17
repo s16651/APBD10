@@ -28,7 +28,8 @@ namespace APBD10.Services
                                                         LastName = st.LastName,
                                                         BirthDate = st.BirthDate,
                                                         Semester = st.IdEnrollmentNavigation.Semester,
-                                                        Studies = st.IdEnrollmentNavigation.IdStudyNavigation.Name
+                                                        Studies = st.IdEnrollmentNavigation.IdStudyNavigation.Name,
+                                                        Password = st.Password
                                                     }).ToList();
             return students;
         }
@@ -42,7 +43,8 @@ namespace APBD10.Services
                     FirstName = isq.FirstName,
                     LastName = isq.LastName,
                     BirthDate = isq.BirthDate,
-                    IdEnrollment = isq.IdEnrollment
+                    IdEnrollment = isq.IdEnrollment,
+                    Password = isq.Password
                 };
                 _studentContext.Student.Add(st);
                 await _studentContext.SaveChangesAsync();
@@ -155,7 +157,8 @@ namespace APBD10.Services
                 FirstName = request.FirstName,
                 LastName = request.LastName,
                 BirthDate = request.BirthDate,
-                IdEnrollment = enrollmentID
+                IdEnrollment = enrollmentID,
+                Password = request.Password
             };
             await AddStudentAsync(isq);
             var enrollStudentList = _studentContext.Enrollment.Where(e => e.IdEnrollment == enrollmentID).ToList();
@@ -181,7 +184,8 @@ namespace APBD10.Services
                 FirstName = usr.FirstName,
                 LastName = usr.LastName,
                 BirthDate = usr.BirthDate,
-                IdEnrollment = usr.IdEnrollment
+                IdEnrollment = usr.IdEnrollment,
+                Password = usr.Password
             };
             _studentContext.Attach(st);
             _studentContext.Entry(st).State = EntityState.Modified;
